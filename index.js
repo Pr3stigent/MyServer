@@ -1,3 +1,47 @@
+import express from "express"
+
+const app = express()
+const PORT = 3000
+
+app.use(express.json())
+
+app.get("/", (req, res) => {
+  console.log("GET")
+  res.send(JSON.stringify("The day is today"))
+})
+
+app.post("/", (req, res) => {
+  console.log("POSTED")
+  console.log(req.body)
+})
+
+app.listen(PORT, (err) => {
+  if (err) console.log(err)
+  console.log("Start server", PORT)
+})
+
+fetch("http://localhost:3000/", {method: "GET"})
+    .then((response) => response.json(), (err) => console.log(err))
+    .then((data) => {
+        console.log("On Client")
+        console.log(data)
+    })
+
+const message = {a: 1}
+fetch("http://localhost:3000/", {
+  method: "POST",
+  body: JSON.stringify(message),
+  headers: {
+      'Content-Type': 'application/json',
+  }
+})
+  .then((response) => response.json(), (err) => console.log(err))
+  .then((data) => {
+      console.log("On Client")
+      console.log(data)
+  })
+
+/*
 import { createServer } from 'node:http';
 
 const server = createServer()
@@ -35,3 +79,4 @@ fetch("http://localhost:3000/", {method: "GET"})
         console.log("On Client")
         console.log(data)
     })
+*/
